@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import './App.css'
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
-import { countAtom } from './store/atoms/count'
+import { countAtom, isEvenSelector } from './store/atoms/count'
 
 function App() {
 
@@ -27,9 +27,20 @@ function CountRender(){
   const count = useRecoilValue(countAtom)
   return (
     <div>
-{count}
+      {count}
+      <IsEvenComponent />
     </div>
     
+  )
+}
+
+function IsEvenComponent(){
+ const isEven = useRecoilValue(isEvenSelector);
+  return (
+    <div>
+      {isEven ? "Even" : null}
+    </div>
+
   )
 }
 
