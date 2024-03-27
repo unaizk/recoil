@@ -1,61 +1,37 @@
 import { useState } from 'react'
 import './App.css'
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
-import { countAtom, isEvenSelector } from './store/atoms/count'
+import {  jobsAtom, messagingAtom, networkAtom, notificationAtom, totalNotifications } from './store/atoms/count'
 
 function App() {
 
   return (
    <div>
-      <Count/>
+      <MainApp />
    </div>
   )
 }
 
-function Count(){
+
+function MainApp (){
+
+  const networkCount = useRecoilValue(networkAtom);
+  const jobsCOunt = useRecoilValue(jobsAtom);
+  const messagingCount = useRecoilValue(messagingAtom);
+  const notificationCount = useRecoilValue(notificationAtom);
+
+  const totalNotificationCount = useRecoilValue(totalNotifications)
   return (
-    <div>
-      <CountRender />
-      <Button />
-    </div>
+    <>
+    <button>Home</button>
+    <button>My network ({networkCount})</button>
+    <button>Jobs ({jobsCOunt}) </button>
+    <button>Messaging ({messagingCount})</button>
+    <button>Notifications ({notificationCount})</button>
+    <button>Me ({totalNotificationCount})</button>
+    </>
   )
 }
 
 
-
-function CountRender(){
-  const count = useRecoilValue(countAtom)
-  return (
-    <div>
-      {count}
-      <IsEvenComponent />
-    </div>
-    
-  )
-}
-
-function IsEvenComponent(){
- const isEven = useRecoilValue(isEvenSelector);
-  return (
-    <div>
-      {isEven ? "Even" : null}
-    </div>
-
-  )
-}
-
-function Button(){
-  const setCount = useSetRecoilState(countAtom)
-  return (
-    
-    <div>
-      <button onClick={() =>{
-        setCount((prev) => prev+1)
-      }}>increment</button>
-      <button onClick={() =>{
-        setCount((prev) => prev-1)
-      }}>decrement</button>
-    </div>
-  )
-}
 export default App
